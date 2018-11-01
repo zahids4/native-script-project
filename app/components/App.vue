@@ -6,7 +6,8 @@
 					<TextField class="input input-border" textAlignment="center" v-model="username"/>
           <Label class="label input input-border" text="Password"/>
 					<TextField class="input input-border" textAlignment="center" v-model="password" :secure="true"/>
-					<Button text="Sign in" @tap="signInPressed" />
+					<Button text="Sign in" @tap="signInPressed" :isEnabled="enableSignIn" />
+					<ActivityIndicator :busy="loading"/>
 				</FlexboxLayout>
     </Page>
 </template>
@@ -14,6 +15,7 @@
 <script>
 import Vue from 'nativescript-vue'
 import VueDevtools from 'nativescript-vue-devtools'
+import ProductsList from './ProductsList'
 
 Vue.use(VueDevtools)
 
@@ -21,26 +23,21 @@ export default {
 	data() {
 		return {
 			username: '',
-			password: ''
+			password: '',
+			loading: false
+		}
+	},
+	computed: {
+		enableSignIn() {
+			return this.username != '' && this.password != ''
 		}
 	},
 	methods: {
 		signInPressed() {
-			this.$navigateTo(Detail);
+			this.$navigateTo(ProductsList);
 		}
 	}
 }
-
-const Detail = {
-  template: `
-    <Page>
-      <ActionBar title="Detail"/>
-      <StackLayout>
-        <Label text="Details.." />
-      </StackLayout>
-    </Page>
-  `
-};
 </script>
 
 <style scoped>
