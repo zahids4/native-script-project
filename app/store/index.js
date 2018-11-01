@@ -7,9 +7,13 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
-    count: 'SAIIIM'
+    count: 13
+  },
+  getters: {
+    getField,
   },
   mutations: {
+    updateField,
     increment (state) {
       state.count++
     }

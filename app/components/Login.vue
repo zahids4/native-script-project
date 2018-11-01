@@ -23,7 +23,7 @@
 import Vue from 'nativescript-vue'
 import VueDevtools from 'nativescript-vue-devtools'
 import ProductsList from './ProductsList'
-import { mapState } from 'vuex';
+import { mapFields } from 'vuex-map-fields';
 
 Vue.use(VueDevtools)
 
@@ -37,7 +37,7 @@ export default {
 		}
 	},
 	computed: {
-		...mapState([
+		...mapFields([
 			'count'
 		]),
 		enableSignIn() {
