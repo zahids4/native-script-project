@@ -3,11 +3,10 @@
 		<ActionBar title="E-Data Now!"/>
 		<FlexboxLayout flexDirection="column">
 			<Label class="label" text="Username" />
-			<TextField class="input input-border" textAlignment="center" v-model="username"/>
+			<TextField class="input input-border" keyboardType="email" textAlignment="center" v-model="username"/>
 			<Label class="label input input-border" text="Password"/>
 			<TextField class="input input-border" textAlignment="center" v-model="password" :secure="true"/>
-			<Button text="Sign in" @tap="signInPressed"  />
-			<!-- :isEnabled="enableSignIn" -->
+			<Button text="Sign in" @tap="signInPressed"  :isEnabled="enableSignIn"/>
 			<ActivityIndicator :busy="loading"/>
 		</FlexboxLayout>
 	</Page>
@@ -30,12 +29,17 @@ export default {
 	},
 	computed: {
 		enableSignIn() {
-			return this.username != '' && this.password != ''
+			return this.username != '' && this.password.length > 7
 		}
 	},
 	methods: {
 		signInPressed() {
-			this.$navigateTo(ProductsList);
+			this.loading = true
+			this.$navigateTo(ProductsList, {
+				props: {
+					title: `Welcome ${this.username}`
+				}
+			}).then(this.loading = false);
 		}
 	}
 }
@@ -43,8 +47,8 @@ export default {
 
 <style scoped>
 	ActionBar {
-			background-color: green;
-			color: lightblue;
+		background-color: green;
+		color: lightblue;
 	}
 	TextField {
 		border-bottom-width: 0.5;

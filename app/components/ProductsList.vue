@@ -1,26 +1,31 @@
 <template>
   <Page>
-    <ActionBar title="Products"/>
-    <ListView for="product in products" @itemTap="productClicked" separatorColor="black" rowHeight="50">
-      <v-template>
-        <StackLayout orientation="horizontal">
-          <Image :src="product.image.src" stretch="aspectFit" height="50"/>
-          <StackLayout>
-            <Label :text="product.title" fontWeight="bold"/>
-            <Label :text="product.vendor"/>
+    <ActionBar :title="title">
+      <NavigationButton text="Log Out"/>
+    </ActionBar>
+    <StackLayout>
+      <Label class="label" text="Products" fontSize="22" fontWeight="bold" textAlignment="center" />
+      <ListView for="product in products" @itemTap="productClicked" separatorColor="black" rowHeight="50">
+        <v-template>
+          <StackLayout orientation="horizontal">
+            <Image :src="product.image.src" stretch="aspectFit" height="50"/>
+            <StackLayout>
+              <Label :text="product.title" fontWeight="bold"/>
+              <Label :text="product.vendor"/>
+            </StackLayout>
           </StackLayout>
-        </StackLayout>
-      </v-template>
-      <v-template if="$odd">
-        <StackLayout orientation="horizontal" backgroundColor="#43b883">
-          <Image :src="product.image.src" stretch="aspectFit" height="50"/>
-          <StackLayout>
-            <Label :text="product.title" fontWeight="bold"/>
-            <Label :text="product.vendor"/>
+        </v-template>
+        <v-template if="$odd">
+          <StackLayout orientation="horizontal" backgroundColor="#43b883">
+            <Image :src="product.image.src" stretch="aspectFit" height="50"/>
+            <StackLayout>
+              <Label :text="product.title" fontWeight="bold"/>
+              <Label :text="product.vendor"/>
+            </StackLayout>
           </StackLayout>
-        </StackLayout>
-      </v-template>
-    </ListView>
+        </v-template>
+      </ListView>
+    </StackLayout>
   </Page>
 </template>
 
@@ -41,6 +46,9 @@ export default {
       products: []
     }
   },
+  props: {
+    title: String
+  },
   mounted() {
     axios.get(shopifyApiUrl).then(({data}) => {
       this.products = data.products
@@ -48,7 +56,6 @@ export default {
   },
   methods: {
     productClicked(event) {
-      console.log(event, "LAMPRD")
       this.$navigateTo(Product, {
         transition: {
           name: 'slideTop'
@@ -61,6 +68,16 @@ export default {
   }
 }
 </script>
+
+
+<style scoped>
+	.label {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+		border-bottom-width: 0.5;
+    border-color:black;
+	}
+</style>
 
 
 

@@ -1,5 +1,8 @@
 <template>
   <Page>
+    <ActionBar title="Product">
+      <NavigationButton text="Products"/>
+    </ActionBar>
     <FlexboxLayout flexDirection="column">
       <FlexboxLayout>
         <Image :src="product.image.src" stretch="aspectFit" height="100" width="100"/>
@@ -41,7 +44,7 @@ Vue.use(VueDevtools)
 
 
 export default {
-  props: { product: Object }
+  props: { product: Object },
 }
 </script>
 
