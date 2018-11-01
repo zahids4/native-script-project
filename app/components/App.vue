@@ -1,15 +1,16 @@
 <template>
-    <Page>
-        <ActionBar title="E-Data Now!"/>
-				<FlexboxLayout flexDirection="column">
-          <Label class="label" text="Username" />
-					<TextField class="input input-border" textAlignment="center" v-model="username"/>
-          <Label class="label input input-border" text="Password"/>
-					<TextField class="input input-border" textAlignment="center" v-model="password" :secure="true"/>
-					<Button text="Sign in" @tap="signInPressed" :isEnabled="enableSignIn" />
-					<ActivityIndicator :busy="loading"/>
-				</FlexboxLayout>
-    </Page>
+	<Page>
+		<ActionBar title="E-Data Now!"/>
+		<FlexboxLayout flexDirection="column">
+			<Label class="label" text="Username" />
+			<TextField class="input input-border" textAlignment="center" v-model="username"/>
+			<Label class="label input input-border" text="Password"/>
+			<TextField class="input input-border" textAlignment="center" v-model="password" :secure="true"/>
+			<Button text="Sign in" @tap="signInPressed"  />
+			<!-- :isEnabled="enableSignIn" -->
+			<ActivityIndicator :busy="loading"/>
+		</FlexboxLayout>
+	</Page>
 </template>
 
 <script>

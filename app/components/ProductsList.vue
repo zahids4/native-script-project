@@ -1,9 +1,18 @@
 <template>
   <Page>
-    <ActionBar title="Detail"/>
-    <ListView for="product in products" @itemTap="productClicked" rowHeight="50">
+    <ActionBar title="Products"/>
+    <ListView for="product in products" @itemTap="productClicked" separatorColor="black" rowHeight="50">
       <v-template>
         <StackLayout orientation="horizontal">
+          <Image :src="product.image.src" stretch="aspectFit" height="50"/>
+          <StackLayout>
+            <Label :text="product.title" fontWeight="bold"/>
+            <Label :text="product.vendor"/>
+          </StackLayout>
+        </StackLayout>
+      </v-template>
+      <v-template if="$odd">
+        <StackLayout orientation="horizontal" backgroundColor="#43b883">
           <Image :src="product.image.src" stretch="aspectFit" height="50"/>
           <StackLayout>
             <Label :text="product.title" fontWeight="bold"/>
@@ -19,6 +28,7 @@
 <script>
 import Vue from 'nativescript-vue'
 import VueDevtools from 'nativescript-vue-devtools'
+import Product from './Product'
 
 Vue.use(VueDevtools)
 
@@ -37,10 +47,20 @@ export default {
     })
   },
   methods: {
-    productClicked() {
-
+    productClicked(event) {
+      console.log(event, "LAMPRD")
+      this.$navigateTo(Product, {
+        transition: {
+          name: 'slideTop'
+        },
+        props: {
+          product: event.item
+        }
+      });
     }
   }
 }
 </script>
+
+
 
