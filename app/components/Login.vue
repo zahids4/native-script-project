@@ -1,6 +1,8 @@
 <template>
 	<Page>
-		<ActionBar title="E-Data Now!"/>
+		<ActionBar>
+			<Image src="~/assets/images/edata_logo.png" width="300" height="34" verticalAlignment="center" />
+		</ActionBar>
 		<FlexboxLayout flexDirection="column" justifyContent="center">
 			<Label text="Welcome!" fontSize="24" fontWeight="bold" textAlignment="center"/>
 			<Label class="label" text="Username" />
@@ -68,7 +70,7 @@ export default {
 
 <style scoped>
 	ActionBar {
-		background-color: green;
+		background-color: white;
 		color: lightblue;
 	}
 	TextField {
