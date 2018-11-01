@@ -1,12 +1,17 @@
 <template>
 	<Page>
 		<ActionBar title="E-Data Now!"/>
-		<FlexboxLayout flexDirection="column">
+		<FlexboxLayout flexDirection="column" justifyContent="center">
+			<Label text="Welcome!" fontSize="24" fontWeight="bold" textAlignment="center" style="color: green"/>
 			<Label class="label" text="Username" />
 			<TextField class="input input-border" keyboardType="email" textAlignment="center" v-model="username"/>
 			<Label class="label input input-border" text="Password"/>
 			<TextField class="input input-border" textAlignment="center" v-model="password" :secure="true"/>
 			<Button text="Sign in" @tap="signInPressed"  :isEnabled="enableSignIn"/>
+			<FlexboxLayout justifyContent="center">
+				<Label class="label" text="Stay signed in" />
+				<Switch />
+			</FlexboxLayout>
 			<ActivityIndicator :busy="loading"/>
 		</FlexboxLayout>
 	</Page>
@@ -35,11 +40,23 @@ export default {
 	methods: {
 		signInPressed() {
 			this.loading = true
-			this.$navigateTo(ProductsList, {
-				props: {
-					title: `Welcome ${this.username}`
-				}
-			}).then(this.loading = false);
+			if (this.username == 'User') {
+				alert({
+					title: "Error logging in",
+					message: "Incorrent username or password",
+					okButtonText: "Try again"
+				})
+				this.loading = false
+			} else {
+				this.$navigateTo(ProductsList, {
+					props: {
+						title: `Welcome ${this.username}`
+					}
+				}).then(() => {
+					this.loading = false
+					this.password = ''
+				});
+			}
 		}
 	}
 }
@@ -52,11 +69,16 @@ export default {
 	}
 	TextField {
 		border-bottom-width: 0.5;
+		margin-bottom: 1rem;
     border-color:green;
 		width: 0.1;
 	}
 	.label {
 		text-align: center;
+		margin-bottom: 1rem;
+	}
+	Switch {
+		margin-left: 6rem;
 	}
 </style>
 
