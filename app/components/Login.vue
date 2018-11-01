@@ -2,15 +2,15 @@
 	<Page>
 		<ActionBar title="E-Data Now!"/>
 		<FlexboxLayout flexDirection="column" justifyContent="center">
-			<Label text="Welcome!" fontSize="24" fontWeight="bold" textAlignment="center" style="color: green"/>
+			<Label text="Welcome!" fontSize="24" fontWeight="bold" textAlignment="center"/>
 			<Label class="label" text="Username" />
-			<TextField class="input input-border" keyboardType="email" textAlignment="center" v-model="username"/>
+			<TextField class="input input-border" keyboardType="email" v-model="username"/>
 			<Label class="label input input-border" text="Password"/>
-			<TextField class="input input-border" textAlignment="center" v-model="password" :secure="true"/>
-			<Button text="Sign in" @tap="signInPressed"  :isEnabled="enableSignIn"/>
+			<TextField class="input input-border" v-model="password" :secure="true"/>
+			<Button class="btn btn-primary btn-active" text="Sign in" @tap="signInPressed"  :isEnabled="enableSignIn"/>
 			<FlexboxLayout justifyContent="center">
-				<Label class="label" text="Stay signed in" />
-				<Switch />
+				<Label class="label" text="Remember Me" />
+				<Switch v-model="persistCredentials"/>
 			</FlexboxLayout>
 			<ActivityIndicator :busy="loading"/>
 		</FlexboxLayout>
@@ -29,6 +29,7 @@ export default {
 		return {
 			username: '',
 			password: '',
+			persistCredentials: false,
 			loading: false
 		}
 	},
@@ -54,7 +55,10 @@ export default {
 					}
 				}).then(() => {
 					this.loading = false
-					this.password = ''
+					if (this.persistCredentials == false) {
+						this.username = ''
+						this.password = ''
+					}
 				});
 			}
 		}
@@ -68,14 +72,20 @@ export default {
 		color: lightblue;
 	}
 	TextField {
-		border-bottom-width: 0.5;
+		border-width: 0.5;
 		margin-bottom: 1rem;
     border-color:green;
 		width: 0.1;
+		margin-left: 10rem;
+		margin-right: 10rem;
 	}
 	.label {
-		text-align: center;
+		margin-left: 10rem;
+		text-align: left;
 		margin-bottom: 1rem;
+	}
+	Label {
+    color:green;
 	}
 	Switch {
 		margin-left: 6rem;
