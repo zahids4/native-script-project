@@ -6,9 +6,9 @@
 		<FlexboxLayout flexDirection="column" justifyContent="center">
 			<Label text="Welcome!" fontSize="24" fontWeight="bold" textAlignment="center"/>
 			<Label class="label" text="Username" />
-			<TextField class="input input-border" keyboardType="email" v-model="username"/>
+			<TextField class="input input-border" keyboardType="email" v-model="username" maxLength="25"/>
 			<Label class="label input input-border" text="Password"/>
-			<TextField class="input input-border" v-model="password" :secure="true"/>
+			<TextField class="input input-border" v-model="password" :secure="true" maxLength="11"/>
 			<Button class="btn btn-primary btn-active" text="Sign in" @tap="signInPressed"  :isEnabled="enableSignIn"/>
 			<FlexboxLayout justifyContent="center">
 				<Label class="label" text="Remember Me" />
@@ -23,6 +23,7 @@
 import Vue from 'nativescript-vue'
 import VueDevtools from 'nativescript-vue-devtools'
 import ProductsList from './ProductsList'
+import { mapState } from 'vuex';
 
 Vue.use(VueDevtools)
 
@@ -36,6 +37,9 @@ export default {
 		}
 	},
 	computed: {
+		...mapState([
+			'count'
+		]),
 		enableSignIn() {
 			return this.username != '' && this.password.length > 7
 		}

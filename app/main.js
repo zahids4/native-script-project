@@ -1,6 +1,10 @@
 import Vue from 'nativescript-vue'
+import Vuex from 'vuex';
 import Login from './components/Login'
 import VueDevtools from 'nativescript-vue-devtools'
+import { store } from './store/index.js'
+
+Vue.use(Vuex);
 
 if(TNS_ENV !== 'production') {
   Vue.use(VueDevtools)
@@ -8,7 +12,7 @@ if(TNS_ENV !== 'production') {
 // Prints Vue logs when --env.production is *NOT* set while building
 Vue.config.silent = (TNS_ENV === 'production')
 
-
 new Vue({
+  store,
   render: h => h('frame', [h(Login)])
 }).$start()
