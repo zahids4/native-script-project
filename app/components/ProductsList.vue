@@ -1,7 +1,7 @@
 <script src="http://localhost:8098"></script>
 <template>
   <Page>
-    <ActionBar :title="title">
+    <!-- <ActionBar :title="title">
       <NavigationButton text="Log Out"/>
     </ActionBar>
     <StackLayout>
@@ -26,7 +26,7 @@
           </StackLayout>
         </v-template>
       </ListView>
-    </StackLayout>
+    </StackLayout> -->
   </Page>
 </template>
 
@@ -44,15 +44,29 @@ const shopifyApiUrl = 'https://shopicruit.myshopify.com/admin/products.json?page
 export default {
   data() {
     return {
-      products: []
+      products: [],
+      data: null
     }
   },
   props: {
     title: String
   },
   mounted() {
-    axios.get(shopifyApiUrl).then(({data}) => {
-      this.products = data.products
+    // axios.get(shopifyApiUrl).then(({data}) => {
+    //   this.products = data.products
+    // })
+    let config = {
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Access-Control-Allow-Origin": "http://localhost:3000",
+        "Access-Control-Allow-Credentials": true,
+        withCredentials: true
+
+      }
+    }
+    axios.get('http://localhost:3000/api/jobs/get_job/3173?debug=true&device=c4314d500acf6c60e633b5486a843162', config).then((res) => {
+      this.data = res
     })
   },
   methods: {
