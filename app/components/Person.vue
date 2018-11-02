@@ -1,7 +1,7 @@
 <script src="http://localhost:8098"></script>
 <template>
-  <Page class="page">
-    <ActionBar class="action-bar" title="Person"></ActionBar>
+  <Page>
+    <ActionBar class="action-bar" title="Person" />
     <GridLayout rows="auto, *" columns="*">
       <StackLayout class="form" row="0" col="0">
         <StackLayout class="input-field">
