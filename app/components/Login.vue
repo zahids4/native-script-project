@@ -1,3 +1,4 @@
+<script src="http://localhost:8098"></script>
 <template>
 	<Page>
 		<ActionBar>
@@ -10,6 +11,7 @@
 			<Label class="label input input-border" text="Password"/>
 			<TextField class="input input-border" v-model="password" :secure="true" maxLength="11"/>
 			<Button class="btn btn-primary btn-active" text="Sign in" @tap="signInPressed"  :isEnabled="enableSignIn"/>
+			<Button class="btn btn-primary btn-active" text="Person" @tap="goToPerson"/>
 			<FlexboxLayout justifyContent="center">
 				<Label class="label" text="Remember Me" />
 				<Switch v-model="persistCredentials"/>
@@ -23,7 +25,7 @@
 import Vue from 'nativescript-vue'
 import VueDevtools from 'nativescript-vue-devtools'
 import ProductsList from './ProductsList'
-import { mapFields } from 'vuex-map-fields';
+import Person from './Person'
 
 Vue.use(VueDevtools)
 
@@ -37,14 +39,14 @@ export default {
 		}
 	},
 	computed: {
-		...mapFields([
-			'count'
-		]),
 		enableSignIn() {
 			return this.username != '' && this.password.length > 7
 		}
 	},
 	methods: {
+		goToPerson() {
+			this.$navigateTo(Person)
+		},
 		signInPressed() {
 			this.loading = true
 			if (this.username == 'User') {

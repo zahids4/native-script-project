@@ -1,3 +1,4 @@
+<script src="http://localhost:8098"></script>
 <template>
   <Page>
     <ActionBar title="Product">
